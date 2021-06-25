@@ -7,10 +7,11 @@ namespace DeveloperTest.Database
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +24,26 @@ namespace DeveloperTest.Database
             modelBuilder.Entity<Job>()
                 .Property(x => x.JobId)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Customer>()
+                .HasKey(x => x.CustomerId);
+
+            modelBuilder.Entity<Customer>()
+                .Property(x => x.CustomerId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Job>()
+                .HasOne<Customer>(j => j.Customer)
+                .WithOne()
+                .HasForeignKey<Job>(j => j.CustomerId);
+
+            modelBuilder.Entity<Customer>()
+                .HasData(new Customer
+                {
+                    CustomerId = 1,
+                    Name = "Cust1",
+                    Type = "Large"
+                });
 
             modelBuilder.Entity<Job>()
                 .HasData(new Job

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../services/job.service';
 import { JobModel } from '../models/job.model';
+import { CustomerService } from '../services/customer.service';
+import { CustomerModel } from '../models/customer.model';
 
 @Component({
   selector: 'app-job-detail',
@@ -16,7 +18,8 @@ export class JobDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private jobService: JobService) {
+    private jobService: JobService
+    ) {
       this.jobId = route.snapshot.params.id;
     }
 

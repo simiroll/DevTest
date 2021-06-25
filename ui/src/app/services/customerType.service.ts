@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EngineerService {
+export class CustomerTypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public GetEngineers(): Observable<string[]> {
-    return this.httpClient.get<string[]>('https://localhost:5001/engineer');
+  public GetCustomerTypes(): Observable<string[]> {
+    return this.httpClient.get<string[]>('https://localhost:5001/customerType');
   }
 }

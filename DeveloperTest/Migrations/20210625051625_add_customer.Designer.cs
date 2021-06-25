@@ -4,14 +4,16 @@ using DeveloperTest.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DeveloperTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210625051625_add_customer")]
+    partial class add_customer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,14 +37,6 @@ namespace DeveloperTest.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            CustomerId = 1,
-                            Name = "Cust1",
-                            Type = "Large"
-                        });
                 });
 
             modelBuilder.Entity("DeveloperTest.Database.Models.Job", b =>
@@ -52,9 +46,6 @@ namespace DeveloperTest.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Engineer")
                         .HasColumnType("nvarchar(max)");
 
@@ -63,10 +54,6 @@ namespace DeveloperTest.Migrations
 
                     b.HasKey("JobId");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique()
-                        .HasFilter("[CustomerId] IS NOT NULL");
-
                     b.ToTable("Jobs");
 
                     b.HasData(
@@ -74,15 +61,8 @@ namespace DeveloperTest.Migrations
                         {
                             JobId = 1,
                             Engineer = "Test",
-                            When = new DateTime(2021, 6, 25, 9, 18, 35, 150, DateTimeKind.Local).AddTicks(1047)
+                            When = new DateTime(2021, 6, 25, 6, 16, 24, 926, DateTimeKind.Local).AddTicks(2218)
                         });
-                });
-
-            modelBuilder.Entity("DeveloperTest.Database.Models.Job", b =>
-                {
-                    b.HasOne("DeveloperTest.Database.Models.Customer", "Customer")
-                        .WithOne()
-                        .HasForeignKey("DeveloperTest.Database.Models.Job", "CustomerId");
                 });
 #pragma warning restore 612, 618
         }
